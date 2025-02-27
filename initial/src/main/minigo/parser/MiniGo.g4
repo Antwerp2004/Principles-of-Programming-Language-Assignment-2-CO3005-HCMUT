@@ -26,8 +26,10 @@ options{
 	language = Python3;
 }
 
+// Program
 program  : decl+ EOF ;
 
+// Declaration
 decl: var_decl | const_decl
     | struct_decl | interface_decl
     | func_decl | method_decl ;
@@ -43,7 +45,7 @@ stmt: var_decl | const_decl
 // Block
 block: OPEN_BRACE stmt+ CLOSE_BRACE;
 
-// Variable, Constant declaration Statement
+// Variable, Constant declaration
 var_decl: VAR IDENTIFIER (decl_typ | EQUAL expr | decl_typ EQUAL expr) SEMICOLON;
 const_decl: CONST IDENTIFIER EQUAL expr SEMICOLON;
 decl_typ: primitive_type | IDENTIFIER | array_type;
@@ -141,7 +143,7 @@ array_ele: INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | 
          | IDENTIFIER | struct_literal | short_array_literal;
 short_array_literal: OPEN_BRACE array_ele_list CLOSE_BRACE;
 // Array access
-array_access: expr6 array_access_box+;
+array_access: expr6 array_access_box;
 
 
 // Struct
