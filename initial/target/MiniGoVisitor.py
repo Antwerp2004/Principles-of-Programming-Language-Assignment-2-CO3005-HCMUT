@@ -39,11 +39,6 @@ class MiniGoVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MiniGoParser#decl_typ.
-    def visitDecl_typ(self, ctx:MiniGoParser.Decl_typContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MiniGoParser#assign_stmt.
     def visitAssign_stmt(self, ctx:MiniGoParser.Assign_stmtContext):
         return self.visitChildren(ctx)
@@ -81,11 +76,6 @@ class MiniGoVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by MiniGoParser#basic_for_loop.
     def visitBasic_for_loop(self, ctx:MiniGoParser.Basic_for_loopContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by MiniGoParser#condition.
-    def visitCondition(self, ctx:MiniGoParser.ConditionContext):
         return self.visitChildren(ctx)
 
 

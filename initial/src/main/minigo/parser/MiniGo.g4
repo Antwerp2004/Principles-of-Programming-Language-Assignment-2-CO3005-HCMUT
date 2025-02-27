@@ -46,9 +46,8 @@ stmt: var_decl | const_decl
 block: OPEN_BRACE stmt+ CLOSE_BRACE;
 
 // Variable, Constant declaration
-var_decl: VAR IDENTIFIER (decl_typ | EQUAL expr | decl_typ EQUAL expr) SEMICOLON;
+var_decl: VAR IDENTIFIER (typ | EQUAL expr | typ EQUAL expr) SEMICOLON;
 const_decl: CONST IDENTIFIER EQUAL expr SEMICOLON;
-decl_typ: primitive_type | IDENTIFIER | array_type;
 
 // Assignment Statement
 assign_stmt: lhs assign_operator expr SEMICOLON;
@@ -57,18 +56,17 @@ lhs: IDENTIFIER | struct_access | array_access;
 // If Statement
 if_stmt: only_if_stmt else_if_list else_stmt? SEMICOLON;
 only_if_stmt: IF OPEN_PARENTHESIS expr CLOSE_PARENTHESIS block;
-else_if_list: (ELSE IF OPEN_PARENTHESIS expr CLOSE_PARENTHESIS block)*;
+else_if_list: (ELSE only_if_stmt)*;
 else_stmt: ELSE block;
 
 // For Statement
 for_stmt: basic_for_loop | for_loop_initial | for_loop_range;
 // Basic For Loop
-basic_for_loop: FOR condition block SEMICOLON;
-condition: expr;
+basic_for_loop: FOR expr block SEMICOLON;
 // For Loop with Initialization, Condition, and Update
-for_loop_initial: FOR initialization condition SEMICOLON update block SEMICOLON;
-initialization: IDENTIFIER assign_operator expr SEMICOLON 
-              | VAR IDENTIFIER (EQUAL expr | decl_typ EQUAL expr) SEMICOLON;
+for_loop_initial: FOR initialization expr SEMICOLON update block SEMICOLON;
+initialization: update SEMICOLON 
+              | VAR IDENTIFIER (EQUAL expr | typ EQUAL expr) SEMICOLON;
 update: IDENTIFIER assign_operator expr;
 // For Loop with Range
 for_loop_range: FOR IDENTIFIER COMMA IDENTIFIER ASSIGNMENT_SIGN RANGE expr block SEMICOLON;

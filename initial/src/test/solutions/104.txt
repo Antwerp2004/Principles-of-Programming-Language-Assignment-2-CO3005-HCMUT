@@ -1,1 +1,1 @@
-func,abc,(,),<EOF>
+Illegal escape in string: "kanji'lang\'

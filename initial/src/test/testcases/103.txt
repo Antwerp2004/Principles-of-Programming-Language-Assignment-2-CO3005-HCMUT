@@ -1,1 +1,1 @@
-var abc int ;
+ "Gravity	Falls\n,<EOF>" 
