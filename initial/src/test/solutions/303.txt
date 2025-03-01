@@ -1,1 +1,1 @@
-Program([VarDecl(x)])
+Program([VarDecl(x,BinaryOp(IntLiteral(5),+,IntLiteral(6)))])

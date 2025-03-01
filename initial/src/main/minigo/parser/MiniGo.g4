@@ -45,7 +45,7 @@ stmt: var_decl | const_decl
 // Block
 block: OPEN_BRACE stmt+ CLOSE_BRACE;
 
-// Variable, Constant declaration
+// Variable, Constant Declaration
 var_decl: VAR IDENTIFIER (typ | EQUAL expr | typ EQUAL expr) SEMICOLON;
 const_decl: CONST IDENTIFIER EQUAL expr SEMICOLON;
 
@@ -83,19 +83,19 @@ return_stmt: RETURN expr? SEMICOLON;
 
 
 // Function
-// Function declaration
+// Function Declaration
 func_decl: FUNC IDENTIFIER OPEN_PARENTHESIS param_list? CLOSE_PARENTHESIS typ? block SEMICOLON;
-// Function call
+// Function Call
 func_call: IDENTIFIER OPEN_PARENTHESIS argument_list? CLOSE_PARENTHESIS;
 argument_list: expr (COMMA expr)*;
 
 
 // Method
-// Method declaration
+// Method Declaration
 method_decl: FUNC OPEN_PARENTHESIS IDENTIFIER IDENTIFIER CLOSE_PARENTHESIS 
         IDENTIFIER OPEN_PARENTHESIS param_list? CLOSE_PARENTHESIS typ? block SEMICOLON;
-// Method call
-method_call: expr6 DOT func_call;
+// Method Call
+method_call: struct_array_method DOT func_call;
 
 
 // Type
@@ -110,13 +110,13 @@ expr2: expr2 relational_operator expr3 | expr3;
 expr3: expr3 arith_low_operator expr4 | expr4;
 expr4: expr4 arith_high_operator expr5 | expr5;
 expr5: (NOT | SUB) expr5 | expr6;
-expr6: expr6 DOT operand | expr6 OPEN_BRACKET expr CLOSE_BRACKET | operand;
-// Sub-expression
+expr6: struct_access | array_access | method_call | operand;
+// Sub-Expression
 sub_expr: OPEN_PARENTHESIS expr CLOSE_PARENTHESIS;
 
 
 // Operand
-operand: INTEGER_LITERAL
+operand:  INTEGER_LITERAL
         | FLOAT_LITERAL
         | STRING_LITERAL
         | BOOLEAN_LITERAL
@@ -129,23 +129,23 @@ operand: INTEGER_LITERAL
 
 
 // Array
-// Array type
-array_type: array_literal_box array_type | array_literal_box (primitive_type | IDENTIFIER | array_type);
+// Array Type
+array_type: array_literal_box array_type | array_literal_box (primitive_type | IDENTIFIER);
 array_literal_box: OPEN_BRACKET (INTEGER_LITERAL | IDENTIFIER) CLOSE_BRACKET;
 array_access_box: OPEN_BRACKET expr CLOSE_BRACKET;
 
 // Array Literal
-array_literal: array_type OPEN_BRACE array_ele_list+ CLOSE_BRACE;
+array_literal: array_type OPEN_BRACE array_ele_list CLOSE_BRACE;
 array_ele_list: array_ele (COMMA array_ele)*;
 array_ele: INTEGER_LITERAL | FLOAT_LITERAL | BOOLEAN_LITERAL | STRING_LITERAL | NIL_LITERAL
          | IDENTIFIER | struct_literal | short_array_literal;
 short_array_literal: OPEN_BRACE array_ele_list CLOSE_BRACE;
-// Array access
-array_access: expr6 array_access_box;
+// Array Access
+array_access: struct_array_method (DOT IDENTIFIER | DOT func_call) array_access_box+ | operand array_access_box+;
 
 
 // Struct
-// Struct declaration
+// Struct Declaration
 struct_decl: TYPE IDENTIFIER STRUCT OPEN_BRACE struct_field+ CLOSE_BRACE SEMICOLON;
 struct_field: IDENTIFIER typ SEMICOLON;
 
@@ -154,11 +154,14 @@ struct_literal: IDENTIFIER OPEN_BRACE struct_ele_list? CLOSE_BRACE;
 struct_ele_list: struct_ele (COMMA struct_ele)*;
 struct_ele: IDENTIFIER COLON expr;
 // Struct Access
-struct_access: expr6 DOT IDENTIFIER;
+struct_access: struct_array_method DOT IDENTIFIER;
+
+// Struct Array Method joint
+struct_array_method: operand (DOT IDENTIFIER | array_access_box+ | DOT func_call)*;
 
 
 // Interface
-// Interface declaration
+// Interface Declaration
 interface_decl: TYPE IDENTIFIER INTERFACE OPEN_BRACE interface_method+ CLOSE_BRACE SEMICOLON;
 interface_method: IDENTIFIER OPEN_PARENTHESIS param_list? CLOSE_PARENTHESIS typ? SEMICOLON;
 param_list: param_decl (COMMA param_decl)*;

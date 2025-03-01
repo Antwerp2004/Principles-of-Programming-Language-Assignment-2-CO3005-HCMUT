@@ -1551,6 +1551,6 @@ func main() {
             """
         const a = x.2;
 """
-        out = "successful"
+        out = "Error on line 2 col 21: 2"
         ParserSuite.parserTest += 1
         self.assertTrue(TestParser.checkParser(inp, out, ParserSuite.parserTest))
