@@ -1,1 +1,1 @@
-var x = 5 + 6 ;
+const VT = [1]ID{1, 3};

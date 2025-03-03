@@ -40,8 +40,7 @@ stmt: var_decl | const_decl
     | if_stmt
     | for_stmt
     | break_stmt | continue_stmt
-    | call_stmt | return_stmt 
-    | comment ;
+    | call_stmt | return_stmt ;
 // Block
 block: OPEN_BRACE stmt+ CLOSE_BRACE;
 
@@ -157,7 +156,7 @@ struct_ele: IDENTIFIER COLON expr;
 struct_access: struct_array_method DOT IDENTIFIER;
 
 // Struct Array Method joint
-struct_array_method: operand (DOT IDENTIFIER | array_access_box+ | DOT func_call)*;
+struct_array_method: operand | struct_array_method DOT IDENTIFIER | struct_array_method array_access_box+ | struct_array_method DOT func_call;
 
 
 // Interface
@@ -176,7 +175,6 @@ assign_operator: ASSIGNMENT_SIGN | SHORT_ADD | SHORT_SUB | SHORT_MULTIPLY | SHOR
 
 
 // Comments
-comment: SINGLE_LINE_COMMENT | MULTI_LINE_COMMENT;
 // Single-line Comments
 SINGLE_LINE_COMMENT: '//' (~[\r\n])* -> skip;
 // Multi-line Comments

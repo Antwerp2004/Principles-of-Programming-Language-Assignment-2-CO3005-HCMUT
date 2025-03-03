@@ -45,7 +45,10 @@ class ASTGeneration(MiniGoVisitor):
             return Assign(lhs, BinaryOp(op[0], lhs, rhs))
         
     def visitLhs(self,ctx:MiniGoParser.LhsContext):
-        return self.visit(ctx.getChild(0))
+        if ctx.IDENTIFIER():
+            return Id(ctx.IDENTIFIER().getText())
+        else:
+            return self.visit(ctx.getChild(0))
     
 
     # If Statement
@@ -109,7 +112,7 @@ class ASTGeneration(MiniGoVisitor):
     
     # Call Statement
     def visitCall_stmt(self,ctx:MiniGoParser.Call_stmtContext):
-        return CallStmt(self.visit(ctx.getChild(0)))
+        return self.visit(ctx.getChild(0))
     
     # Return Statement
     def visitReturn_stmt(self,ctx:MiniGoParser.Return_stmtContext):
@@ -144,7 +147,7 @@ class ASTGeneration(MiniGoVisitor):
     # Method Call
     def visitMethod_call(self,ctx:MiniGoParser.Method_callContext):
         funcCall = self.visit(ctx.func_call())
-        return MethodCall(self.visit(ctx.struct_array_method()), funcCall.funName, funcCall.args)
+        return MethCall(self.visit(ctx.struct_array_method()), funcCall.funName, funcCall.args)
     
 
     # Type
@@ -214,9 +217,9 @@ class ASTGeneration(MiniGoVisitor):
     # Array Type
     def visitArray_type(self,ctx:MiniGoParser.Array_typeContext):
         if ctx.array_type():
-            return ArrayType([self.vistArray_literal_box(ctx.array_literal_box())] + self.visit(ctx.array_type()).dimens, self.visit(ctx.array_type()).eleType)
+            return ArrayType([self.visitArray_literal_box(ctx.array_literal_box())] + self.visit(ctx.array_type()).dimens, self.visit(ctx.array_type()).eleType)
         else:
-            return ArrayType(self.visit(ctx.array_literal_box()), self.visit(ctx.primitive_type()) if ctx.primitive_type() else Id(ctx.IDENTIFIER().getText()))
+            return ArrayType([self.visit(ctx.array_literal_box())], self.visit(ctx.primitive_type()) if ctx.primitive_type() else Id(ctx.IDENTIFIER().getText()))
         
     def visitArray_literal_box(self,ctx:MiniGoParser.Array_literal_boxContext):
         return IntLiteral(int(ctx.INTEGER_LITERAL().getText())) if ctx.INTEGER_LITERAL() else Id(ctx.IDENTIFIER().getText())
@@ -280,16 +283,22 @@ class ASTGeneration(MiniGoVisitor):
         return [self.visit(x) for x in ctx.struct_ele()]
     
     def visitStruct_ele(self,ctx:MiniGoParser.Struct_eleContext):
-        return (ctx.IDENTIFIER().getText(), self.visit(ctx.expr))
+        return (ctx.IDENTIFIER().getText(), self.visit(ctx.expr()))
     
     # Struct Access
     def visitStruct_access(self,ctx:MiniGoParser.Struct_accessContext):
         return FieldAccess(self.visit(ctx.struct_array_method()), ctx.IDENTIFIER().getText())
     
-    # # Struct Array Method joint
-    # def visitStruct_array_method(self,ctx:MiniGoParser.Struct_array_methodContext):
-
-        
+    # Struct Array Method joint
+    def visitStruct_array_method(self,ctx:MiniGoParser.Struct_array_methodContext):
+        if ctx.operand():
+            return self.visit(ctx.operand())
+        elif ctx.IDENTIFIER():
+            return FieldAccess(self.visit(ctx.struct_array_method()), ctx.IDENTIFIER().getText())
+        elif ctx.array_access_box():
+            return ArrayCell(self.visit(ctx.struct_array_method()), [self.visit(x) for x in ctx.array_access_box()])
+        else:
+            return MethCall(self.visit(ctx.struct_array_method()), self.visit(ctx.func_call()).funName, self.visit(ctx.func_call()).args)
     
     # Interface
     # Interface Declaration
@@ -298,7 +307,7 @@ class ASTGeneration(MiniGoVisitor):
     
     def visitInterface_method(self,ctx:MiniGoParser.Interface_methodContext):
         paramList = self.visit(ctx.param_list()) if ctx.param_list() else []
-        paramTypeList = [x.Type for x in paramList]
+        paramTypeList = [x.parType for x in paramList]
         return Prototype(ctx.IDENTIFIER().getText(), paramTypeList, self.visit(ctx.typ()) if ctx.typ() else VoidType())
     
     def visitParam_list(self,ctx:MiniGoParser.Param_listContext):
