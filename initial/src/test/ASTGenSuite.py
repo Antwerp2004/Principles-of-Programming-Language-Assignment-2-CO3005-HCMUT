@@ -607,953 +607,965 @@ func main() {
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
-#     def test_ASTGen_40(self):
-#         inp = \
-#             """
-# // Test case 40: Correct associativity and Precedence
-
-# func main() {
-
-# 	var x int = 2 * (3 + 4) / 2
-
-# 	println(x)
-
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_41(self):
-#         inp = \
-#             """
-
-# // Test case 41:  Simple Array Literal test
-# func main() {
-# 	var arr [3]string = [3]string{"Hello", World, {1,2,3}}
-
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_42(self):
-#         inp = \
-#             """// Test case 42:  Test continue statement with label
-
-# func main() {
-
-# 	for i := 0; i < 10; i+= 1{
-# 		if(i % 2 == 0) {
-# 			continue
-# 		}
-
-# 		println(i)
-# 	}
-
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_43(self):
-#         inp = \
-#             """// Test case 43:  Nil comparison with type assertion
-# func main() {
-# 	var inter int = nil
-# 	if (inter == nil) {
-# 		println("It is nil")
-# 	}
-# 	}
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_44(self):
-#         inp = \
-#             """
-# // Test case 44: Nested loops and branching logic
-
-# func main() {
-
-# 	for i := 0; i < 5; i += 1 {
-# 		for j := 0; j < 5; j += 1 {
-# 			if (i == j) {
-# 				println("Diagonal")
-# 			} else if (i > j) {
-# 				println("Below Diagonal")
-# 			} else {
-# 				println("Above Diagonal")
-# 			}
-# 		}
-# 	}
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_45(self):
-#         inp = \
-#             """
-
-
-# // Test case 45:  Invalid type in array literal (error)
-# func main() {
-#    var arr [3]int = int{1, "2", 3}
-# }
-# """
-#         out = "Error on line 6 col 21: int"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_46(self):
-#         inp = \
-#             """// Test case 46: Variable redeclaration within inner scope (valid)
-# func main() {
-#     var x int = 10
-#     if (true) {
-#       var x string = "hello"
-#       println(x)
-#     }
-#     println(x)
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_47(self):
-#         inp = \
-#             """// Test case 47: Missing semicolon in for loop (Error)
-# func main() {
-#   for i := 0 i < 10 ;i++ {
-
-#   }
-# }
-# """
-#         out = "Error on line 3 col 14: i"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_48(self):
-#         inp = \
-#             """// Test case 48: Type mismatch in assignment (Error)
-# func main() {
-#     var x
-# }
-# """
-#         out = "Error on line 3 col 10: ;"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_49(self):
-#         inp = \
-#             """// Test case 49: Invalid expression in return statement (Error)
-# func exampleFunc() int {
-#   return "hello" + 5;
-# }"""
-#         out = "Error on line 4 col 2: <EOF>"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_50(self):
-#         inp = \
-#             """ for i := 0; i < 10; i += 1 {
-#     if (x % i = 0) {return false;}
-# }
-# """
-#         out = "Error on line 1 col 2: for"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_51(self):
-#         inp = \
-#             """func main () {return 1;}
-
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_52(self):
-#         inp = \
-#             """for i; i <= x / 2; i += 1
-# {
-#     if (x % i = 0) {return false
-#     }
-# }
-# """
-#         out = "Error on line 1 col 1: for"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_53(self):
-#         inp = \
-#             """func main(x string, y float)  {
-# }
-# """
-#         out = "Error on line 2 col 1: }"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_54(self):
-#         inp = \
-#             """func foo(str string) boolean
-# writeString(str)
-# var x = 7 + (t - false)
-# """
-#         out = "Error on line 1 col 29: ;"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_55(self):
-#         inp = \
-#             """func bar( arr int){
-# x[2][8] := [3][1,2,\"3\"] + [2][4,\"5\",6]
-# }"""
-#         out = "Error on line 2 col 17: ,"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_56(self):
-#         inp = \
-#             """
-# func min(a int, b string){  
-# if (x <= false){
-#         main(a,2,\"b\")
-#     }
-# for var i int; i <= x / 2; i += 1{ 
-
-#     loop1(arr[a(b)][b(a)])
-#     loop2(arr[a(b)],b[2])
-# }
-
-# }
-# """
-#         out = "Error on line 6 col 14: ;"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_57(self):
-#         inp = \
-#             """func min(a int, b string){ 
-# if (boolean) {
-# doSomething(a,2,\"b\");}
-# elif (abc > \"abc\") {doSomethingElif(b,true,foo(x,2))
-# }
-# else doSomethingElse(doSomethingElse,foo[3.2,3])
-# }
-
-# """
-#         out = "Error on line 2 col 5: boolean"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_58(self):
-#         inp = \
-#             """//func max(a int, b number)
-# /* begin
-# ## Comment 1
-# ##if (x == 6) else {doSomething();}
-# ## Comment 2
-# */
-# """
-#         out = "Error on line 7 col 1: <EOF>"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_59(self):
-#         inp = \
-#             """func bar(arr float, b boolean) {
-# x[a(b)][b(a)] := foo(1,2,\"abcd\",154/4)
-# var x int= readString()
-# """
-#         out = "Error on line 4 col 1: <EOF>"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_60(self):
-#         inp = \
-#             """const GREETING string = "Hello, World!"
-
-# var message string
-
-# func main() {
-#     message = GREETING
-#     println(message)
-# }
-# """
-#         out = "Error on line 1 col 16: string"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_61(self):
-#         inp = \
-#             """var a int = 10
-# var b int = 5
-# var result int
-
-# func main() {
-#     result = a + b*2 - b/2
-#     println(result)
-# }
-# """
-#         out = "Error on line 6 col 12: ="
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_62(self):
-#         inp = \
-#             """var x int = 7
-
-# func main() {
-#     if (x > 5) {
-#         println("x is greater than 5")
-#     } else {
-#         println("x is not greater than 5")
-#     }
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_63(self):
-#         inp = \
-#             """var numbers [5]int = [5]int{1, 2, 3, 4, 5}
-
-# func main() {
-#     for , value := range numbers {
-#         println(index, value)
-#     }
-# }
-# """
-#         out = "Error on line 4 col 9: ,"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_64(self):
-#         inp = \
-#             """type Point struct {
-#     x int
-#     y int
-# }
-
-# var p Point
-
-# func main() {
-#     p.x := 10
-#     p.y := 20
-#     println(p.x, p.y)
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_65(self):
-#         inp = \
-#             """
-# type Printer interface {
-#     print(message string)
-# }
-
-# func main() {
-#     // No implementation here to test just declaration
-# }
-
-# """
-#         out = "Error on line 8 col 1: }"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_66(self):
-#         inp = \
-#             """type Rectangle struct {
-#     width int
-#     height int
-# }
-
-# func (r Rectangle) area() int {
-#     return r.width * r.height
-# }
-
-# var rect Rectangle
-
-# func main() {
-#     rect.width = 5
-#     rect.height = 10
-#     println(rect.area())
-# }
-# """
-#         out = "Error on line 13 col 16: ="
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_67(self):
-#         inp = \
-#             """func calculate(a int, b int) (int, int) {  // Invalid: Multiple return values
-#     return a + b, a - b
-# }
-
-# func main() {
-#     var sum, diff int
-#     sum, diff = calculate(10, 5)
-#     println(sum, diff)
-# }
-# """
-#         out = "Error on line 1 col 30: ("
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_68(self):
-#         inp = \
-#             """var age int = 25
-# var isStudent bool = false
-
-# func main() {
-#     if (age < 30) {
-#         if (!isStudent) {
-#             println("Young professional")
-#         } else {
-#             println("Young student")
-        
-#     } else {
-#         println("Experienced")
-#     }
-# }
-# """
-#         out = "Error on line 11 col 7: else"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_69(self):
-#         inp = \
-#             """
-# func main() {
-#     for i := 0; i < 10; i += 1 {
-#         if (i % 3 == 0) {
-#             continue  // Skip multiples of 3
-#         }
-#         if (i > 7) {
-#             break     // Exit loop if i is greater than 7
-#         }
-#         println(i)
-#     }
-#     break
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_70(self):
-#         inp = \
-#             """
-# type Circle struct {
-#     radius int
-# }
-
-# var circles [3]Circle
-
-# func main() {
-#     circles[0].radius := 5
-#     circles[1].radius := 7
-#     circles[2].radius := 9
-
-#     for _, c := range circles {
-#         println(c.radius)
-#     }
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_71(self):
-#         inp = \
-#             """func main() {
-#     for i < 3 {
-#         for j += 1 {
-#             println(i, j)
-#         }
-#     }
-# }"""
-#         out = "Error on line 3 col 20: {"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_72(self):
-#         inp = \
-#             """/*
-#     This is a multi-line comment.
-#     It spans multiple lines.
-# */
-
-# // This is a single-line comment.
-
-# var   x  int  =   10;  //  Declaration with extra whitespace
-
-# func main()  {
-#     //  More comments inside the function
-#     println ( x  ) ;
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_73(self):
-#         inp = \
-#             """var maxInt int = 2147483647  // Maximum 32-bit integer (adjust if needed)
-
-# func main() {
-#     var overflow int = maxInt + 1
-#     println(overflow)  //  What happens when we overflow?
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_74(self):
-#         inp = \
-#             """ 
-# var message string = "This string contains a newline\nand a tab\t."
-
-# func main() {
-#     println(message)
-# }
-# """
-#         out = """"This string contains a newline"""
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_75(self):
-#         inp = \
-#             """ 
-# var x int = 5
-
-# func main(x int, y,z float, t [2][3]int, k) {
-#     println(x)
-# }
-# """
-#         out = "Error on line 4 col 43: )"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_76(self):
-#         inp = \
-#             """var message string = "This string is not terminated"
-
-# func main() {
-#     println(message
-# }
-# """
-#         out = """Error on line 4 col 20: ;"""
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_77(self):
-#         inp = \
-#             """ 
-# var x int = 5
-# var y int = 10 // /* */
-# func main() {
-#     println(x + y)
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_78(self):
-#         inp = \
-#             """ var x int = 5
-
-# func main() {
-#     var x [1]float = Person{x: int, y: float} // x redeclared in the same scope
-#     println(x)
-# }
-# """
-#         out = "Error on line 4 col 32: int"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_79(self):
-#         inp = \
-#             """ var globalVar int = 20
-
-# func myFunction() {
-#     var localVar int = 10
-#     println(globalVar + localVar)
-# }
-
-# func main() {
-#     myFunction()
-#     println(globalVar) // Access global variable from main
-#     //println(localVar) // Error: localVar is not defined in main
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_80(self):
-#         inp = \
-#             """ 
-# var a int = 10
-# var b int = 5
-# var c string = "hello"
-
-# func main() {
-#     if ((a > 5 && b < 10) || c == "world") {
-#         if (a + b == 15) {
-#             println("Condition met")
-#         } else {
-#             println("Inner condition failed")
-#         }
-#     } else {
-#         println("Outer condition failed")
-#     }
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_81(self):
-#         inp = \
-#             """var x int
-# var y int
-# var z int
-
-# func main() {
-#     x, y, z = 1, 2 + 3, 4 * 5 - 1 // Note multi-assignment is illegal in MiniGo
-#     println(x, y, z) // Illegal because it's not a function
-# }"""
-#         out = "Error on line 6 col 6: ,"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_82(self):
-#         inp = \
-#             """func main() {
-#     for i := 0; i < 20; i+= 1 {
-#         if (i % 5 == 0) {
-#             continue // Skip multiples of 5
-#         }
-#         if (i > 12 && i < 15) {
-#             break    // Exit if between 13 and 14
-#         }
-#         println(i)
-#     }
-# }"""
-#         out = "Error on line 11 col 2: <EOF>"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_83(self):
-#         inp = \
-#             """type Person struct {
-#     name string
-#     age int
-# }
-
-# var p Person
-
-# func main() {
-#     p.name := "Alice"
-#     p.age := 30
-#     println(p.name, p.age)
-#     var message string = p.name + " is " + p.age + " years old" // Concatenation with integer will cause a type error
-
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_84(self):
-#         inp = \
-#             """var data = [4]int{10, 20, 30, 40}
-
-# func main() {
-#     for index, value := range data {
-#         println(index * value)
-#     }
-#     data[index] := 
-#     z; y := 10
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_85(self):
-#         inp = \
-#             """
-# func findValue(arr [5]int, target int) int {
-#     for i := 0; i < 5; i+=1 {
-#         if (arr[i] == target) {
-#             return i // Return index if found
-#         }
-#     }
-#     return -1  // Return -1 if not found
-# }
-
-# var numbers [5]int = [5]{1, 2, 3, 4, 5}
-
-# func main() {
-#     var index int = findValue(numbers, 3)
-#     println(index)
-# }
-# """
-#         out = "Error on line 11 col 25: {"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_86(self):
-#         inp = \
-#             """var x int = 10
-# var y string = "hello"
-# var z bool = true
-# const PI float = 3.14
-
-# func main() {
-#     println(x, y, z, PI)
-# }
-# """
-#         out = "Error on line 4 col 10: float"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_87(self):
-#         inp = \
-#             """type Address struct {
-#     street string
-#     city string
-# }
-
-# type Person struct {
-#     name string
-#     address Address
-# }
-
-# var p Person
-
-# func main() {
-#     p.name = "Bob"
-#     p.address.street = "123 Main St"
-#     p.address.city = "Anytown"
-#     println(p.name, p.address.street, p.address.city)
-# }
-# """
-#         out = "Error on line 14 col 12: ="
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_88(self):
-#         inp = \
-#             """func isEven(n int) bool {
-#     return n % 2 == 0
-# }
-
-# var num int = 8
-
-# func main() {
-#     if (isEven(num)) {
-#         println("Even")
-#     } else {
-#         println("Odd")
-#     }
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_89(self):
-#         inp = \
-#             """var a int = 5
-# var b int = 10
-# var result bool
-
-# func main() {
-#     result := a + b > 12 && a * b < 60 // Will cause a type error because an int is compared to a bool
-#     println(result)
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_90(self):
-#         inp = \
-#             """
-# func main() {
-#     for i = 0; i < 10; i++ { 
-#         println(i) 
-#     }
-# }
-# """
-#         out = "Error on line 3 col 11: ="
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_91(self):
-#         inp = \
-#             """
-# var x int = 10
-
-# func main() {
-#     if (x > 5)
-#         println("x > 5")  // Missing braces - should cause an error
-#     else
-#         println("x <= 5")
-# }
-# """
-#         out = "Error on line 5 col 15: ;"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_92(self):
-#         inp = \
-#             """type MyInterface interface {
-# 	doSomething()
-# }
-# type MyType struct{x MyInterface
-# }
-
-# func (m MyType) doSomething() {
-# 	println("Hello")
-# }
-
-# func main() {
-# 	var i MyInterface
-# 	var m MyType
-# 	i := m
-#     y[6].x[6].doSomething()
-#     Arr[i + 1] := 10
-
-# 	//i.doSomething()// Calling method doSomething of MyInterface
-
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_93(self):
-#         inp = \
-#             """
-# var a bool = true
-# var b bool = false
-# var c bool = true
-
-# func main() {
-#     var result bool = (a && b) ||+ (!c && a)
-#     println(result)
-# }
-# """
-#         out = "Error on line 7 col 34: +"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_94(self):
-#         inp = \
-#             """
-
-
-# var numbers [3]int = int{1, "hello", 3} // "hello" is not an int. Error expected.
-
-# func main() {
-#     println(numbers[0], numbers[1], numbers[2])
-# }
-# """
-#         out = "Error on line 4 col 22: int"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_95(self):
-#         inp = \
-#             """var notAnArray int = 5;
-
-# func main() {
-#     for index, value := notAnArray {
-#         println(index, value);
-#     }
-# }
-# """
-#         out = "Error on line 4 col 25: notAnArray"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_96(self):
-#         inp = \
-#             """func someOtherFunction() {
-#     println(x = 5)
-# }
-# """
-#         out = "Error on line 2 col 15: ="
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_97(self):
-#         inp = \
-#             """
-#         type Circle struct {
-#             radius float;
-#             center Point;
-#         }
-#         func (c Circle) area() float {
-#             return 3.14 * c.radius * c.radius;
-#         }
-#         func main() {
-#             circles := [3]Circle{
-#                 Circle{radius: 1.0, center: Point{x: 0, y: 0}},
-#                 Circle{radius: 2.0, center: Point{x: 1, y: 1}},
-#                 Circle{radius: 3.0, center: Point{x: 2, y: 2}}
-#             };
-#         }"""
-#         out = "Error on line 13 col 63: ;"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_98(self):
-#         inp = \
-#             """type MyType struct {
-# 	Name string
-# }
-
-# func (mt MyType) someMethod() string {
-# 	for i := 0; i < 10; i+=1 {
-# 		if (i == 5) {
-# 			return "Found 5!"
-# 		}
-# 	}
-# 	return "Not found"
-# }
-
-# func main() {
-# 	mt := MyType{Name: "Example"}
-# 	result := mt[y].f(z).someMethod()
-# 	println(result)
-# }
-# """
-#         out = "successful"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
-
-#     def test_ASTGen_99(self):
-#         inp = \
-#             """
-#         const a = x.2;
-# """
-#         out = "Error on line 2 col 21: 2"
-#         ASTGenSuite.ASTGenTest += 1
-#         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+    def test_ASTGen_40(self):
+        inp = \
+            """
+// Test case 40: Correct associativity and Precedence
+
+func main() {
+
+	var x int = 2 * (3 + 4) / 2
+
+	println(x)
+
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([VarDecl(x,IntType,BinaryOp(BinaryOp(IntLiteral(2),*,BinaryOp(IntLiteral(3),+,IntLiteral(4))),/,IntLiteral(2))),FuncCall(println,[Id(x)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_41(self):
+        inp = \
+            """
+
+// Test case 41:  Simple Array Literal test
+func main() {
+	var arr [3]string = [3]string{"Hello", World, {1,2,3}}
+
+}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([VarDecl(arr,ArrayType(StringType,[IntLiteral(3)]),ArrayLiteral([IntLiteral(3)],StringType,[StringLiteral("Hello"),Id(World),ArrayLiteral([],VoidType,[IntLiteral(1),IntLiteral(2),IntLiteral(3)])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_42(self):
+        inp = \
+            """// Test case 42:  Test continue statement with label
+
+func main() {
+
+	for i := 0; i < 10; i+= 1{
+		if(i % 2 == 0) {
+			continue
+		}
+
+		println(i)
+	}
+
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(i),%,IntLiteral(2)),==,IntLiteral(0)),Block([Continue()])),FuncCall(println,[Id(i)])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_43(self):
+        inp = \
+            """// Test case 43:  Nil comparison with type assertion
+func main() {
+	var inter int = nil
+	if (inter == nil) {
+		println("It is nil")
+	}
+	}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([VarDecl(inter,IntType,Nil),If(BinaryOp(Id(inter),==,Nil),Block([FuncCall(println,[StringLiteral("It is nil")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_44(self):
+        inp = \
+            """
+// Test case 44: Nested loops and branching logic
+
+func main() {
+
+	for i := 0; i < 5; i += 1 {
+		for j := 0; j < 5; j += 1 {
+			if (i == j) {
+				println("Diagonal")
+			} else if (i > j) {
+				println("Below Diagonal")
+			} else {
+				println("Above Diagonal")
+			}
+		}
+	}
+}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(5)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([For(Assign(Id(j),IntLiteral(0)),BinaryOp(Id(j),<,IntLiteral(5)),Assign(Id(j),BinaryOp(Id(j),+,IntLiteral(1))),Block([If(BinaryOp(Id(i),==,Id(j)),Block([FuncCall(println,[StringLiteral("Diagonal")])]),If(BinaryOp(Id(i),>,Id(j)),Block([FuncCall(println,[StringLiteral("Below Diagonal")])]),Block([FuncCall(println,[StringLiteral("Above Diagonal")])])))]))]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_45(self):
+        inp = \
+            """
+
+
+// Test case 45:  Invalid type in array literal (error)
+func main() {
+   var arr [3]int = [x]int{1, "2", 3}
+}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([VarDecl(arr,ArrayType(IntType,[IntLiteral(3)]),ArrayLiteral([Id(x)],IntType,[IntLiteral(1),StringLiteral("2"),IntLiteral(3)]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_46(self):
+        inp = \
+            """// Test case 46: Variable redeclaration within inner scope (valid)
+func main() {
+    var x int = 10
+    if (true) {
+      var x string = "hello"
+      println(x)
+    }
+    println(x)
+}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([VarDecl(x,IntType,IntLiteral(10)),If(BooleanLiteral(true),Block([VarDecl(x,StringType,StringLiteral("hello")),FuncCall(println,[Id(x)])])),FuncCall(println,[Id(x)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_47(self):
+        inp = \
+            """// Test case 47: Missing semicolon in for loop (Error)
+func main() {
+  for i := 0 ;i < 10 ;i+=1 {
+    println(x)
+  }
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([FuncCall(println,[Id(x)])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_48(self):
+        inp = \
+            """// Test case 48: Type mismatch in assignment (Error)
+func main() {
+    var x = 0.9
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([VarDecl(x,FloatLiteral(0.9))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_49(self):
+        inp = \
+            """// Test case 49: Invalid expression in return statement (Error)
+func exampleFunc() int {
+  return "hello" + 5;
+}
+"""
+        out = """Program([FuncDecl(exampleFunc,[],IntType,Block([Return(BinaryOp(StringLiteral("hello"),+,IntLiteral(5)))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_50(self):
+        inp = \
+            """ func main(){
+            for i := 0; i < 10; i += 1 {
+                if (x % i == 0) {return false;}
+            }
+        }
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(x),%,Id(i)),==,IntLiteral(0)),Block([Return(BooleanLiteral(false))]))]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_51(self):
+        inp = \
+            """func main () {return 1;}
+
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([Return(IntLiteral(1))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_52(self):
+        inp = \
+            """func main(){
+            for i:=0; i <= x / 2; i += 1 {
+    if (x % i == 0) {return false
+    }
+}
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<=,BinaryOp(Id(x),/,IntLiteral(2))),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(x),%,Id(i)),==,IntLiteral(0)),Block([Return(BooleanLiteral(false))]))]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_53(self):
+        inp = \
+            """func main(x string, y float)  {
+            return 1;
+}
+"""
+        out = "Program([FuncDecl(main,[ParDecl(x,StringType),ParDecl(y,FloatType)],VoidType,Block([Return(IntLiteral(1))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_54(self):
+        inp = \
+            """func foo(str string) boolean {
+writeString(str)
+var x = 7 + (t - false)
+}
+"""
+        out = "Program([FuncDecl(foo,[ParDecl(str,StringType)],BoolType,Block([FuncCall(writeString,[Id(str)]),VarDecl(x,BinaryOp(IntLiteral(7),+,BinaryOp(Id(t),-,BooleanLiteral(false))))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_55(self):
+        inp = \
+            """func bar( arr int){
+x[2][8] := [3]boolean{1,2,\"3\"} + [2]string{4,\"5\",6}
+}
+"""
+        out = """Program([FuncDecl(bar,[ParDecl(arr,IntType)],VoidType,Block([Assign(ArrayCell(Id(x),[IntLiteral(2),IntLiteral(8)]),BinaryOp(ArrayLiteral([IntLiteral(3)],BoolType,[IntLiteral(1),IntLiteral(2),StringLiteral("3")]),+,ArrayLiteral([IntLiteral(2)],StringType,[IntLiteral(4),StringLiteral("5"),IntLiteral(6)])))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_56(self):
+        inp = \
+            """
+func min(a int, b string){  
+if (x <= false){
+        main(a,2,\"b\")
+    }
+for var i int = 1; i <= x / 2; i += 1{ 
+
+    loop1(arr[a(b)][b(a)])
+    loop2(arr[a(b)],b[2])
+}
+
+}
+"""
+        out = """Program([FuncDecl(min,[ParDecl(a,IntType),ParDecl(b,StringType)],VoidType,Block([If(BinaryOp(Id(x),<=,BooleanLiteral(false)),Block([FuncCall(main,[Id(a),IntLiteral(2),StringLiteral("b")])])),For(VarDecl(i,IntType,IntLiteral(1)),BinaryOp(Id(i),<=,BinaryOp(Id(x),/,IntLiteral(2))),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([FuncCall(loop1,[ArrayCell(Id(arr),[FuncCall(a,[Id(b)]),FuncCall(b,[Id(a)])])]),FuncCall(loop2,[ArrayCell(Id(arr),[FuncCall(a,[Id(b)])]),ArrayCell(Id(b),[IntLiteral(2)])])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_57(self):
+        inp = \
+            """func min(a int, b string){ 
+if (false) {
+doSomething(a,2,"b");}
+else if (abc > "abc") {doSomethingElif(b,true,foo(x,2))
+}
+else {doSomethingElse(doSomethingElse,foo[3.2][3]);}
+}
+
+"""
+        out = """Program([FuncDecl(min,[ParDecl(a,IntType),ParDecl(b,StringType)],VoidType,Block([If(BooleanLiteral(false),Block([FuncCall(doSomething,[Id(a),IntLiteral(2),StringLiteral("b")])])),If(BinaryOp(Id(abc),>,StringLiteral("abc")),Block([FuncCall(doSomethingElif,[Id(b),BooleanLiteral(true),FuncCall(foo,[Id(x),IntLiteral(2)])])])),FuncCall(doSomethingElse,[Id(doSomethingElse),ArrayCell(Id(foo),[FloatLiteral(3.2),IntLiteral(3)])])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_58(self):
+        inp = \
+            """func max(a int, b number)
+{
+// Comment 1
+if (x == 6) else {doSomething();}
+// Comment 2
+}
+"""
+        out = "Program([FuncDecl(max,[ParDecl(a,IntType),ParDecl(b,Id(number))],VoidType,Block([If(BinaryOp(Id(x),==,IntLiteral(6)),Block([FuncCall(doSomething,[])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_59(self):
+        inp = \
+            """func bar(arr float, b boolean) {
+x[a(b)][b(a)] := foo(1,2,\"abcd\",154/4)
+var x int= readString()
+}
+"""
+        out = """Program([FuncDecl(bar,[ParDecl(arr,FloatType),ParDecl(b,BoolType)],VoidType,Block([Assign(ArrayCell(Id(x),[FuncCall(a,[Id(b)]),FuncCall(b,[Id(a)])]),FuncCall(foo,[IntLiteral(1),IntLiteral(2),StringLiteral("abcd"),BinaryOp(IntLiteral(154),/,IntLiteral(4))])),VarDecl(x,IntType,FuncCall(readString,[]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_60(self):
+        inp = \
+            """const GREETING = "Hello, World!"
+
+var message string
+
+func main() {
+    message := GREETING
+    println(message)
+}
+"""
+        out = """Program([ConstDecl(GREETING,StringLiteral("Hello, World!")),VarDecl(message,StringType),FuncDecl(main,[],VoidType,Block([Assign(Id(message),Id(GREETING)),FuncCall(println,[Id(message)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_61(self):
+        inp = \
+            """var a int = 10
+var b int = 5
+var result int
+
+func main() {
+    result := a + b*2 - b/2
+    println(result)
+}
+"""
+        out = "Program([VarDecl(a,IntType,IntLiteral(10)),VarDecl(b,IntType,IntLiteral(5)),VarDecl(result,IntType),FuncDecl(main,[],VoidType,Block([Assign(Id(result),BinaryOp(BinaryOp(Id(a),+,BinaryOp(Id(b),*,IntLiteral(2))),-,BinaryOp(Id(b),/,IntLiteral(2)))),FuncCall(println,[Id(result)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_62(self):
+        inp = \
+            """var x int = 7
+
+func main() {
+    if (x > 5) {
+        println("x is greater than 5")
+    } else {
+        println("x is not greater than 5")
+    }
+}
+"""
+        out = """Program([VarDecl(x,IntType,IntLiteral(7)),FuncDecl(main,[],VoidType,Block([If(BinaryOp(Id(x),>,IntLiteral(5)),Block([FuncCall(println,[StringLiteral("x is greater than 5")])]),Block([FuncCall(println,[StringLiteral("x is not greater than 5")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_63(self):
+        inp = \
+            """var numbers [5]int = [5]int{1, 2, 3, 4, 5}
+
+func main() {
+    for arr, value := range numbers {
+        println(index, value)
+    }
+}
+"""
+        out = """Program([VarDecl(numbers,ArrayType(IntType,[IntLiteral(5)]),ArrayLiteral([IntLiteral(5)],IntType,[IntLiteral(1),IntLiteral(2),IntLiteral(3),IntLiteral(4),IntLiteral(5)])),FuncDecl(main,[],VoidType,Block([ForEach(Id(arr),Id(value),Id(numbers),Block([FuncCall(println,[Id(index),Id(value)])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_64(self):
+        inp = \
+            """type Point struct {
+    x int
+    y int
+}
+
+var p Point
+
+func main() {
+    p.x := 10
+    p.y := 20
+    println(p.x, p.y)
+}
+"""
+        out = "Program([StructType(Point,[(x,IntType),(y,IntType)],[]),VarDecl(p,Id(Point)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(p),x),IntLiteral(10)),Assign(FieldAccess(Id(p),y),IntLiteral(20)),FuncCall(println,[FieldAccess(Id(p),x),FieldAccess(Id(p),y)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_65(self):
+        inp = \
+            """
+type Printer interface {
+    print(message string)
+}
+
+func main() {
+    // No implementation here to test just declaration
+    foo(5).x[2][k].y[foo(6)].abc(8.25)[false] := 10
+}
+
+"""
+        out = "Program([InterfaceType(Printer,[Prototype(print,[StringType],VoidType)]),FuncDecl(main,[],VoidType,Block([Assign(ArrayCell(MethodCall(ArrayCell(FieldAccess(ArrayCell(FieldAccess(FuncCall(foo,[IntLiteral(5)]),x),[IntLiteral(2),Id(k)]),y),[FuncCall(foo,[IntLiteral(6)])]),abc,[FloatLiteral(8.25)]),[BooleanLiteral(false)]),IntLiteral(10))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_66(self):
+        inp = \
+            """type Rectangle struct {
+    width int
+    height int
+}
+
+func (r Rectangle) area() int {
+    return r.width * r.height
+}
+
+var rect Rectangle
+
+func main() {
+    rect.width := 5
+    rect.height := 10
+    println(rect.area())
+}
+"""
+        out = """Program([StructType(Rectangle,[(width,IntType),(height,IntType)],[]),MethodDecl(r,Id(Rectangle),FuncDecl(area,[],IntType,Block([Return(BinaryOp(FieldAccess(Id(r),width),*,FieldAccess(Id(r),height)))]))),VarDecl(rect,Id(Rectangle)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(rect),width),IntLiteral(5)),Assign(FieldAccess(Id(rect),height),IntLiteral(10)),FuncCall(println,[MethodCall(Id(rect),area,[])])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_67(self):
+        inp = \
+            """func calculate(a int, b int) int {  // Invalid: Multiple return values
+    return a + b
+}
+
+func main() {
+    var sum int
+    diff := calculate(10, 5)
+    println(sum, diff)
+}
+"""
+        out = "Program([FuncDecl(calculate,[ParDecl(a,IntType),ParDecl(b,IntType)],IntType,Block([Return(BinaryOp(Id(a),+,Id(b)))])),FuncDecl(main,[],VoidType,Block([VarDecl(sum,IntType),Assign(Id(diff),FuncCall(calculate,[IntLiteral(10),IntLiteral(5)])),FuncCall(println,[Id(sum),Id(diff)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_68(self):
+        inp = \
+            """var age int = 25
+var isStudent bool = false
+
+func main() {
+    if (age < 30) {
+        if (!isStudent) {
+            println("Young professional")
+        } else {
+            println("Young student")
+        }
+    } else {
+        println("Experienced")
+    }
+}
+"""
+        out = """Program([VarDecl(age,IntType,IntLiteral(25)),VarDecl(isStudent,Id(bool),BooleanLiteral(false)),FuncDecl(main,[],VoidType,Block([If(BinaryOp(Id(age),<,IntLiteral(30)),Block([If(UnaryOp(!,Id(isStudent)),Block([FuncCall(println,[StringLiteral("Young professional")])]),Block([FuncCall(println,[StringLiteral("Young student")])]))]),Block([FuncCall(println,[StringLiteral("Experienced")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_69(self):
+        inp = \
+            """
+func main() {
+    for i := 0; i < 10; i += 1 {
+        if (i % 3 == 0) {
+            continue  // Skip multiples of 3
+        }
+        if (i > 7) {
+            break     // Exit loop if i is greater than 7
+        }
+        println(i)
+    }
+    break
+}
+"""
+        out = """Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(i),%,IntLiteral(3)),==,IntLiteral(0)),Block([Continue()])),If(BinaryOp(Id(i),>,IntLiteral(7)),Block([Break()])),FuncCall(println,[Id(i)])])),Break()]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_70(self):
+        inp = \
+            """
+type Circle struct {
+    radius int
+}
+
+var circles [3]Circle
+
+func main() {
+    circles[0].radius := 5
+    circles[1].radius := 7
+    circles[2].radius := 9
+
+    for _, c := range circles {
+        println(c.radius)
+    }
+}
+"""
+        out = "Program([StructType(Circle,[(radius,IntType)],[]),VarDecl(circles,ArrayType(Id(Circle),[IntLiteral(3)])),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(ArrayCell(Id(circles),[IntLiteral(0)]),radius),IntLiteral(5)),Assign(FieldAccess(ArrayCell(Id(circles),[IntLiteral(1)]),radius),IntLiteral(7)),Assign(FieldAccess(ArrayCell(Id(circles),[IntLiteral(2)]),radius),IntLiteral(9)),ForEach(Id(_),Id(c),Id(circles),Block([FuncCall(println,[FieldAccess(Id(c),radius)])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_71(self):
+        inp = \
+            """func main() {
+    for i < 3 {
+        for j != !1 {
+            println(i, j)
+        }
+    }
+}"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([None]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_72(self):
+        inp = \
+            """/*
+    This is a multi-line comment.
+    It spans multiple lines.
+*/
+
+// This is a single-line comment.
+
+var   x  int  =   10;  //  Declaration with extra whitespace
+
+func main()  {
+    //  More comments inside the function
+    println ( x  ) ;
+}
+"""
+        out = "Program([VarDecl(x,IntType,IntLiteral(10)),FuncDecl(main,[],VoidType,Block([FuncCall(println,[Id(x)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_73(self):
+        inp = \
+            """var maxInt int = 2147483647  // Maximum 32-bit integer (adjust if needed)
+
+func main() {
+    var overflow int = maxInt + 1
+    println(overflow)  //  What happens when we overflow?
+}
+"""
+        out = "Program([VarDecl(maxInt,IntType,IntLiteral(2147483647)),FuncDecl(main,[],VoidType,Block([VarDecl(overflow,IntType,BinaryOp(Id(maxInt),+,IntLiteral(1))),FuncCall(println,[Id(overflow)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_74(self):
+        inp = \
+            """ 
+var message string = "This string contains a newline and a tab\t."
+
+func main() {
+    println(message)
+}
+"""
+        out = """Program([VarDecl(message,StringType,StringLiteral("This string contains a newline and a tab	.")),FuncDecl(main,[],VoidType,Block([FuncCall(println,[Id(message)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_75(self):
+        inp = \
+            """ 
+var x int = 5
+
+func main(x int, y,z float, t [2][3]int, k boolean) {
+    println(x)
+}
+"""
+        out = """Program([VarDecl(x,IntType,IntLiteral(5)),FuncDecl(main,[ParDecl(x,IntType),ParDecl(y,FloatType),ParDecl(z,FloatType),ParDecl(t,ArrayType(IntType,[IntLiteral(2),IntLiteral(3)])),ParDecl(k,BoolType)],VoidType,Block([FuncCall(println,[Id(x)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_76(self):
+        inp = \
+            """var message string = "This string is not terminated"
+
+func main() {
+    println(message)
+}
+"""
+        out = """Program([VarDecl(message,StringType,StringLiteral("This string is not terminated")),FuncDecl(main,[],VoidType,Block([FuncCall(println,[Id(message)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_77(self):
+        inp = \
+            """ 
+var x int = 5
+var y int = 10 // /* */
+func main() {
+    println(x + y)
+}
+"""
+        out = "Program([VarDecl(x,IntType,IntLiteral(5)),VarDecl(y,IntType,IntLiteral(10)),FuncDecl(main,[],VoidType,Block([FuncCall(println,[BinaryOp(Id(x),+,Id(y))])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_78(self):
+        inp = \
+            """ var x int = 5
+
+func main() {
+    var x [1]float = Person{x: i, y: fl} // x redeclared in the same scope
+    println(x)
+}
+"""
+        out = """Program([VarDecl(x,IntType,IntLiteral(5)),FuncDecl(main,[],VoidType,Block([VarDecl(x,ArrayType(FloatType,[IntLiteral(1)]),StructLiteral(Person,[(x,Id(i)),(y,Id(fl))])),FuncCall(println,[Id(x)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_79(self):
+        inp = \
+            """ var globalVar int = 20
+
+func myFunction() {
+    var localVar int = 10
+    println(globalVar + localVar)
+}
+
+func main() {
+    myFunction()
+    println(globalVar) // Access global variable from main
+    //println(localVar) // Error: localVar is not defined in main
+}
+"""
+        out = "Program([VarDecl(globalVar,IntType,IntLiteral(20)),FuncDecl(myFunction,[],VoidType,Block([VarDecl(localVar,IntType,IntLiteral(10)),FuncCall(println,[BinaryOp(Id(globalVar),+,Id(localVar))])])),FuncDecl(main,[],VoidType,Block([FuncCall(myFunction,[]),FuncCall(println,[Id(globalVar)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_80(self):
+        inp = \
+            """ 
+var a int = 10
+var b int = 5
+var c string = "hello"
+
+func main() {
+    if ((a > 5 && b < 10) || c == "world") {
+        if (a + b == 15) {
+            println("Condition met")
+        } else {
+            println("Inner condition failed")
+        }
+    } else {
+        println("Outer condition failed")
+    }
+}
+"""
+        out = """Program([VarDecl(a,IntType,IntLiteral(10)),VarDecl(b,IntType,IntLiteral(5)),VarDecl(c,StringType,StringLiteral("hello")),FuncDecl(main,[],VoidType,Block([If(BinaryOp(BinaryOp(BinaryOp(Id(a),>,IntLiteral(5)),&&,BinaryOp(Id(b),<,IntLiteral(10))),||,BinaryOp(Id(c),==,StringLiteral("world"))),Block([If(BinaryOp(BinaryOp(Id(a),+,Id(b)),==,IntLiteral(15)),Block([FuncCall(println,[StringLiteral("Condition met")])]),Block([FuncCall(println,[StringLiteral("Inner condition failed")])]))]),Block([FuncCall(println,[StringLiteral("Outer condition failed")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_81(self):
+        inp = \
+            """var x int
+var y int
+var z int
+
+func main() {
+    x := 1
+    y := 2 + 3
+    z := 4 * 5 - 1
+    println(x, y, z) // Illegal because it's not a function
+}"""
+        out = "Program([VarDecl(x,IntType),VarDecl(y,IntType),VarDecl(z,IntType),FuncDecl(main,[],VoidType,Block([Assign(Id(x),IntLiteral(1)),Assign(Id(y),BinaryOp(IntLiteral(2),+,IntLiteral(3))),Assign(Id(z),BinaryOp(BinaryOp(IntLiteral(4),*,IntLiteral(5)),-,IntLiteral(1))),FuncCall(println,[Id(x),Id(y),Id(z)])]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_82(self):
+        inp = \
+            """func main() {
+    for i := 0; i < 20; i+= 1 {
+        if (i % 5 == 0) {
+            continue // Skip multiples of 5
+        }
+        if (i > 12 && i < 15) {
+            break    // Exit if between 13 and 14
+        }
+        println(i)
+    }
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(20)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(i),%,IntLiteral(5)),==,IntLiteral(0)),Block([Continue()])),If(BinaryOp(BinaryOp(Id(i),>,IntLiteral(12)),&&,BinaryOp(Id(i),<,IntLiteral(15))),Block([Break()])),FuncCall(println,[Id(i)])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_83(self):
+        inp = \
+            """type Person struct {
+    name string
+    age int
+}
+
+var p Person
+
+func main() {
+    p.name := "Alice"
+    p.age := 30
+    println(p.name, p.age)
+    var message string = p.name + " is " + p.age + " years old" // Concatenation with integer will cause a type error
+
+}
+"""
+        out = """Program([StructType(Person,[(name,StringType),(age,IntType)],[]),VarDecl(p,Id(Person)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(p),name),StringLiteral("Alice")),Assign(FieldAccess(Id(p),age),IntLiteral(30)),FuncCall(println,[FieldAccess(Id(p),name),FieldAccess(Id(p),age)]),VarDecl(message,StringType,BinaryOp(BinaryOp(BinaryOp(FieldAccess(Id(p),name),+,StringLiteral(" is ")),+,FieldAccess(Id(p),age)),+,StringLiteral(" years old")))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_84(self):
+        inp = \
+            """var data = [4]int{10, 20, 30, 40}
+
+func main() {
+    for index, value := range data {
+        println(index * value)
+    }
+    data[index] := 
+    z; y := 10
+}
+"""
+        out = "Program([VarDecl(data,ArrayLiteral([IntLiteral(4)],IntType,[IntLiteral(10),IntLiteral(20),IntLiteral(30),IntLiteral(40)])),FuncDecl(main,[],VoidType,Block([ForEach(Id(index),Id(value),Id(data),Block([FuncCall(println,[BinaryOp(Id(index),*,Id(value))])])),Assign(ArrayCell(Id(data),[Id(index)]),Id(z)),Assign(Id(y),IntLiteral(10))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_85(self):
+        inp = \
+            """
+func findValue(arr [5]int, target int) int {
+    for i := 0; i < 5; i+=1 {
+        if (arr[i] == target) {
+            return i // Return index if found
+        }
+    }
+    return -1  // Return -1 if not found
+}
+
+var numbers [5]int = [5]float{1, 2, 3, 4, 5}
+
+func main() {
+    var index int = findValue(numbers, 3)
+    println(index)
+}
+"""
+        out = """Program([FuncDecl(findValue,[ParDecl(arr,ArrayType(IntType,[IntLiteral(5)])),ParDecl(target,IntType)],IntType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(5)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(ArrayCell(Id(arr),[Id(i)]),==,Id(target)),Block([Return(Id(i))]))])),Return(UnaryOp(-,IntLiteral(1)))])),VarDecl(numbers,ArrayType(IntType,[IntLiteral(5)]),ArrayLiteral([IntLiteral(5)],FloatType,[IntLiteral(1),IntLiteral(2),IntLiteral(3),IntLiteral(4),IntLiteral(5)])),FuncDecl(main,[],VoidType,Block([VarDecl(index,IntType,FuncCall(findValue,[Id(numbers),IntLiteral(3)])),FuncCall(println,[Id(index)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_86(self):
+        inp = \
+            """var x int = 10
+var y string = "hello"
+var z bool = true
+const PI = 3.14
+
+func main() {
+    println(x, y, z, PI)
+}
+"""
+        out = """Program([VarDecl(x,IntType,IntLiteral(10)),VarDecl(y,StringType,StringLiteral("hello")),VarDecl(z,Id(bool),BooleanLiteral(true)),ConstDecl(PI,FloatLiteral(3.14)),FuncDecl(main,[],VoidType,Block([FuncCall(println,[Id(x),Id(y),Id(z),Id(PI)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_87(self):
+        inp = \
+            """type Address struct {
+    street string
+    city string
+}
+
+type Person struct {
+    name string
+    address Address
+}
+
+var p Person
+
+func main() {
+    p.name := "Bob"
+    p.address.street := "123 Main St"
+    p.address.city := "Anytown"
+    println(p.name, p.address.street, p.address.city)
+}
+"""
+        out = """Program([StructType(Address,[(street,StringType),(city,StringType)],[]),StructType(Person,[(name,StringType),(address,Id(Address))],[]),VarDecl(p,Id(Person)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(p),name),StringLiteral("Bob")),Assign(FieldAccess(FieldAccess(Id(p),address),street),StringLiteral("123 Main St")),Assign(FieldAccess(FieldAccess(Id(p),address),city),StringLiteral("Anytown")),FuncCall(println,[FieldAccess(Id(p),name),FieldAccess(FieldAccess(Id(p),address),street),FieldAccess(FieldAccess(Id(p),address),city)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_88(self):
+        inp = \
+            """func isEven(n int) bool {
+    return n % 2 == 0
+}
+
+var num int = 8
+
+func main() {
+    if (isEven(num)) {
+        println("Even")
+    } else {
+        println("Odd")
+    }
+}
+"""
+        out = """Program([FuncDecl(isEven,[ParDecl(n,IntType)],Id(bool),Block([Return(BinaryOp(BinaryOp(Id(n),%,IntLiteral(2)),==,IntLiteral(0)))])),VarDecl(num,IntType,IntLiteral(8)),FuncDecl(main,[],VoidType,Block([If(FuncCall(isEven,[Id(num)]),Block([FuncCall(println,[StringLiteral("Even")])]),Block([FuncCall(println,[StringLiteral("Odd")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_89(self):
+        inp = \
+            """var a int = 5
+var b int = 10
+var result bool
+
+func main() {
+    result := a + b > 12 && a * b < 60 // Will cause a type error because an int is compared to a bool
+    println(result)
+}
+"""
+        out = """Program([VarDecl(a,IntType,IntLiteral(5)),VarDecl(b,IntType,IntLiteral(10)),VarDecl(result,Id(bool)),FuncDecl(main,[],VoidType,Block([Assign(Id(result),BinaryOp(BinaryOp(BinaryOp(Id(a),+,Id(b)),>,IntLiteral(12)),&&,BinaryOp(BinaryOp(Id(a),*,Id(b)),<,IntLiteral(60)))),FuncCall(println,[Id(result)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_90(self):
+        inp = \
+            """
+func main() {
+    for i := 0; i < 10; i/=2 { 
+        println(i) 
+    }
+}
+"""
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),/,IntLiteral(2))),Block([FuncCall(println,[Id(i)])]))]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_91(self):
+        inp = \
+            """
+var x int = 10
+
+func main() {
+    if (x > 5){
+        println("x > 5")
+    } else {
+        println("x <= 5")
+    }
+}
+"""
+        out = """Program([VarDecl(x,IntType,IntLiteral(10)),FuncDecl(main,[],VoidType,Block([If(BinaryOp(Id(x),>,IntLiteral(5)),Block([FuncCall(println,[StringLiteral("x > 5")])]),Block([FuncCall(println,[StringLiteral("x <= 5")])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_92(self):
+        inp = \
+            """type MyInterface interface {
+	doSomething()
+}
+type MyType struct{x MyInterface
+}
+
+func (m MyType) doSomething() {
+	println("Hello")
+}
+
+func main() {
+	var i MyInterface
+	var m MyType
+	i := m
+    y[6].x[6].doSomething()
+    Arr[i + 1] := 10
+
+	//i.doSomething()// Calling method doSomething of MyInterface
+
+}
+"""
+        out = """Program([InterfaceType(MyInterface,[Prototype(doSomething,[],VoidType)]),StructType(MyType,[(x,Id(MyInterface))],[]),MethodDecl(m,Id(MyType),FuncDecl(doSomething,[],VoidType,Block([FuncCall(println,[StringLiteral("Hello")])]))),FuncDecl(main,[],VoidType,Block([VarDecl(i,Id(MyInterface)),VarDecl(m,Id(MyType)),Assign(Id(i),Id(m)),MethodCall(ArrayCell(FieldAccess(ArrayCell(Id(y),[IntLiteral(6)]),x),[IntLiteral(6)]),doSomething,[]),Assign(ArrayCell(Id(Arr),[BinaryOp(Id(i),+,IntLiteral(1))]),IntLiteral(10))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_93(self):
+        inp = \
+            """
+var a bool = true
+var b bool = false
+var c bool = true
+
+func main() {
+    var result bool = (a && b) || (!c && a)
+    println(result)
+}
+"""
+        out = """Program([VarDecl(a,Id(bool),BooleanLiteral(true)),VarDecl(b,Id(bool),BooleanLiteral(false)),VarDecl(c,Id(bool),BooleanLiteral(true)),FuncDecl(main,[],VoidType,Block([VarDecl(result,Id(bool),BinaryOp(BinaryOp(Id(a),&&,Id(b)),||,BinaryOp(UnaryOp(!,Id(c)),&&,Id(a)))),FuncCall(println,[Id(result)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_94(self):
+        inp = \
+            """
+
+
+var numbers [3]int = [3]int{1, "hello", 3} // "hello" is not an int. Error expected.
+
+func main() {
+    println(numbers[0], numbers[1], numbers[2])
+}
+"""
+        out = """Program([VarDecl(numbers,ArrayType(IntType,[IntLiteral(3)]),ArrayLiteral([IntLiteral(3)],IntType,[IntLiteral(1),StringLiteral("hello"),IntLiteral(3)])),FuncDecl(main,[],VoidType,Block([FuncCall(println,[ArrayCell(Id(numbers),[IntLiteral(0)]),ArrayCell(Id(numbers),[IntLiteral(1)]),ArrayCell(Id(numbers),[IntLiteral(2)])])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_95(self):
+        inp = \
+            """var notAnArray int = 5;
+
+func main() {
+    for index, value := range notAnArray {
+        println(index, value);
+    }
+}
+"""
+        out = """Program([VarDecl(notAnArray,IntType,IntLiteral(5)),FuncDecl(main,[],VoidType,Block([ForEach(Id(index),Id(value),Id(notAnArray),Block([FuncCall(println,[Id(index),Id(value)])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_96(self):
+        inp = \
+            """func someOtherFunction() {
+    println(x == 5)
+}
+"""
+        out = """Program([FuncDecl(someOtherFunction,[],VoidType,Block([FuncCall(println,[BinaryOp(Id(x),==,IntLiteral(5))])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_97(self):
+        inp = \
+            """
+        type Circle struct {
+            radius float;
+            center Point;
+        }
+        func (c Circle) area() float {
+            return 3.14 * c.radius * c.radius;
+        }
+        func main() {
+            circles := [3]Circle{
+                Circle{radius: 1.0, center: Point{x: 0, y: 0}},
+                Circle{radius: 2.0, center: Point{x: 1, y: 1}},
+                Circle{radius: 3.0, center: Point{x: 2, y: 2}} };
+        }"""
+        out = """Program([StructType(Circle,[(radius,FloatType),(center,Id(Point))],[]),MethodDecl(c,Id(Circle),FuncDecl(area,[],FloatType,Block([Return(BinaryOp(BinaryOp(FloatLiteral(3.14),*,FieldAccess(Id(c),radius)),*,FieldAccess(Id(c),radius)))]))),FuncDecl(main,[],VoidType,Block([Assign(Id(circles),ArrayLiteral([IntLiteral(3)],Id(Circle),[StructLiteral(Circle,[(radius,FloatLiteral(1.0)),(center,StructLiteral(Point,[(x,IntLiteral(0)),(y,IntLiteral(0))]))]),StructLiteral(Circle,[(radius,FloatLiteral(2.0)),(center,StructLiteral(Point,[(x,IntLiteral(1)),(y,IntLiteral(1))]))]),StructLiteral(Circle,[(radius,FloatLiteral(3.0)),(center,StructLiteral(Point,[(x,IntLiteral(2)),(y,IntLiteral(2))]))])]))]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_98(self):
+        inp = \
+            """type MyType struct {
+	Name string
+}
+
+func (mt MyType) someMethod() string {
+	for i := 0; i < 10; i+=1 {
+		if (i == 5) {
+			return "Found 5!"
+		}
+	}
+	return "Not found"
+}
+
+func main() {
+	mt := MyType{Name: "Example"}
+	result := mt[y].f(z).someMethod()
+	println(result)
+}
+"""
+        out = """Program([StructType(MyType,[(Name,StringType)],[]),MethodDecl(mt,Id(MyType),FuncDecl(someMethod,[],StringType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(Id(i),==,IntLiteral(5)),Block([Return(StringLiteral("Found 5!"))]))])),Return(StringLiteral("Not found"))]))),FuncDecl(main,[],VoidType,Block([Assign(Id(mt),StructLiteral(MyType,[(Name,StringLiteral("Example"))])),Assign(Id(result),MethodCall(MethodCall(ArrayCell(Id(mt),[Id(y)]),f,[Id(z)]),someMethod,[])),FuncCall(println,[Id(result)])]))])"""
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
+
+    def test_ASTGen_99(self):
+        inp = \
+            """
+        const a = x.nigh(yes);
+"""
+        out = "Program([ConstDecl(a,MethodCall(Id(x),nigh,[Id(yes)]))])"
+        ASTGenSuite.ASTGenTest += 1
+        self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
