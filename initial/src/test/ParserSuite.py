@@ -1538,7 +1538,7 @@ func (mt MyType) someMethod() string {
 
 func main() {
 	mt := MyType{Name: "Example"}
-	result := mt[y].f(z).someMethod()
+	result := mt[0x12].f(z).someMethod()
 	println(result)
 }
 """
