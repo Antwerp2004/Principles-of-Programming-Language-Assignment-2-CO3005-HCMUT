@@ -198,9 +198,9 @@ class ASTGeneration(MiniGoVisitor):
     # Operand
     def visitOperand(self,ctx:MiniGoParser.OperandContext):
         if ctx.INTEGER_LITERAL():
-            return IntLiteral(int(ctx.INTEGER_LITERAL().getText()))
+            return IntLiteral(ctx.INTEGER_LITERAL().getText())
         elif ctx.FLOAT_LITERAL():
-            return FloatLiteral(float(ctx.FLOAT_LITERAL().getText()))
+            return FloatLiteral(ctx.FLOAT_LITERAL().getText())
         elif ctx.STRING_LITERAL():
             return StringLiteral(ctx.STRING_LITERAL().getText())
         elif ctx.BOOLEAN_LITERAL():
@@ -222,7 +222,7 @@ class ASTGeneration(MiniGoVisitor):
             return ArrayType([self.visit(ctx.array_literal_box())], self.visit(ctx.primitive_type()) if ctx.primitive_type() else Id(ctx.IDENTIFIER().getText()))
         
     def visitArray_literal_box(self,ctx:MiniGoParser.Array_literal_boxContext):
-        return IntLiteral(int(ctx.INTEGER_LITERAL().getText())) if ctx.INTEGER_LITERAL() else Id(ctx.IDENTIFIER().getText())
+        return IntLiteral(ctx.INTEGER_LITERAL().getText()) if ctx.INTEGER_LITERAL() else Id(ctx.IDENTIFIER().getText())
     
     def visitArray_access_box(self,ctx:MiniGoParser.Array_access_boxContext):
         return self.visit(ctx.expr())
@@ -239,9 +239,9 @@ class ASTGeneration(MiniGoVisitor):
         
     def visitArray_ele(self,ctx:MiniGoParser.Array_eleContext):
         if ctx.INTEGER_LITERAL():
-            return IntLiteral(int(ctx.INTEGER_LITERAL().getText()))
+            return IntLiteral(ctx.INTEGER_LITERAL().getText())
         elif ctx.FLOAT_LITERAL():
-            return FloatLiteral(float(ctx.FLOAT_LITERAL().getText()))
+            return FloatLiteral(ctx.FLOAT_LITERAL().getText())
         elif ctx.STRING_LITERAL():
             return StringLiteral(ctx.STRING_LITERAL().getText())
         elif ctx.BOOLEAN_LITERAL():

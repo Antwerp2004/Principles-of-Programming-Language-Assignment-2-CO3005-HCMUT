@@ -1,5 +1,5 @@
 var a int = 5
-var b int = 10
+var b int = 0Xab69
 var result bool
 
 func main() {

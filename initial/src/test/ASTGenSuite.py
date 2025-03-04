@@ -1221,7 +1221,7 @@ var c string = "hello"
 
 func main() {
     if ((a > 5 && b < 10) || c == "world") {
-        if (a + b == 15) {
+        if (a + b == 3.e+3) {
             println("Condition met")
         } else {
             println("Inner condition failed")
@@ -1231,7 +1231,7 @@ func main() {
     }
 }
 """
-        out = """Program([VarDecl(a,IntType,IntLiteral(10)),VarDecl(b,IntType,IntLiteral(5)),VarDecl(c,StringType,StringLiteral("hello")),FuncDecl(main,[],VoidType,Block([If(BinaryOp(BinaryOp(BinaryOp(Id(a),>,IntLiteral(5)),&&,BinaryOp(Id(b),<,IntLiteral(10))),||,BinaryOp(Id(c),==,StringLiteral("world"))),Block([If(BinaryOp(BinaryOp(Id(a),+,Id(b)),==,IntLiteral(15)),Block([FuncCall(println,[StringLiteral("Condition met")])]),Block([FuncCall(println,[StringLiteral("Inner condition failed")])]))]),Block([FuncCall(println,[StringLiteral("Outer condition failed")])]))]))])"""
+        out = """Program([VarDecl(a,IntType,IntLiteral(10)),VarDecl(b,IntType,IntLiteral(5)),VarDecl(c,StringType,StringLiteral("hello")),FuncDecl(main,[],VoidType,Block([If(BinaryOp(BinaryOp(BinaryOp(Id(a),>,IntLiteral(5)),&&,BinaryOp(Id(b),<,IntLiteral(10))),||,BinaryOp(Id(c),==,StringLiteral("world"))),Block([If(BinaryOp(BinaryOp(Id(a),+,Id(b)),==,FloatLiteral(3.e+3)),Block([FuncCall(println,[StringLiteral("Condition met")])]),Block([FuncCall(println,[StringLiteral("Inner condition failed")])]))]),Block([FuncCall(println,[StringLiteral("Outer condition failed")])]))]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1258,14 +1258,14 @@ func main() {
         if (i % 5 == 0) {
             continue // Skip multiples of 5
         }
-        if (i > 12 && i < 15) {
+        if (i > 3.E+5 && i < 15) {
             break    // Exit if between 13 and 14
         }
         println(i)
     }
 }
 """
-        out = "Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(20)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(i),%,IntLiteral(5)),==,IntLiteral(0)),Block([Continue()])),If(BinaryOp(BinaryOp(Id(i),>,IntLiteral(12)),&&,BinaryOp(Id(i),<,IntLiteral(15))),Block([Break()])),FuncCall(println,[Id(i)])]))]))])"
+        out = """Program([FuncDecl(main,[],VoidType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(20)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(BinaryOp(Id(i),%,IntLiteral(5)),==,IntLiteral(0)),Block([Continue()])),If(BinaryOp(BinaryOp(Id(i),>,FloatLiteral(3.E+5)),&&,BinaryOp(Id(i),<,IntLiteral(15))),Block([Break()])),FuncCall(println,[Id(i)])]))]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1280,13 +1280,13 @@ var p Person
 
 func main() {
     p.name := "Alice"
-    p.age := 30
+    p.age := 0B011110 // Binary literal
     println(p.name, p.age)
     var message string = p.name + " is " + p.age + " years old" // Concatenation with integer will cause a type error
 
 }
 """
-        out = """Program([StructType(Person,[(name,StringType),(age,IntType)],[]),VarDecl(p,Id(Person)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(p),name),StringLiteral("Alice")),Assign(FieldAccess(Id(p),age),IntLiteral(30)),FuncCall(println,[FieldAccess(Id(p),name),FieldAccess(Id(p),age)]),VarDecl(message,StringType,BinaryOp(BinaryOp(BinaryOp(FieldAccess(Id(p),name),+,StringLiteral(" is ")),+,FieldAccess(Id(p),age)),+,StringLiteral(" years old")))]))])"""
+        out = """Program([StructType(Person,[(name,StringType),(age,IntType)],[]),VarDecl(p,Id(Person)),FuncDecl(main,[],VoidType,Block([Assign(FieldAccess(Id(p),name),StringLiteral("Alice")),Assign(FieldAccess(Id(p),age),IntLiteral(0B011110)),FuncCall(println,[FieldAccess(Id(p),name),FieldAccess(Id(p),age)]),VarDecl(message,StringType,BinaryOp(BinaryOp(BinaryOp(FieldAccess(Id(p),name),+,StringLiteral(" is ")),+,FieldAccess(Id(p),age)),+,StringLiteral(" years old")))]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1318,14 +1318,14 @@ func findValue(arr [5]int, target int) int {
     return -1  // Return -1 if not found
 }
 
-var numbers [5]int = [5]float{1, 2, 3, 4, 5}
+var numbers [5]int = [0O345]float{1, 2, 3, 4, 5}
 
 func main() {
     var index int = findValue(numbers, 3)
     println(index)
 }
 """
-        out = """Program([FuncDecl(findValue,[ParDecl(arr,ArrayType(IntType,[IntLiteral(5)])),ParDecl(target,IntType)],IntType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(5)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(ArrayCell(Id(arr),[Id(i)]),==,Id(target)),Block([Return(Id(i))]))])),Return(UnaryOp(-,IntLiteral(1)))])),VarDecl(numbers,ArrayType(IntType,[IntLiteral(5)]),ArrayLiteral([IntLiteral(5)],FloatType,[IntLiteral(1),IntLiteral(2),IntLiteral(3),IntLiteral(4),IntLiteral(5)])),FuncDecl(main,[],VoidType,Block([VarDecl(index,IntType,FuncCall(findValue,[Id(numbers),IntLiteral(3)])),FuncCall(println,[Id(index)])]))])"""
+        out = """Program([FuncDecl(findValue,[ParDecl(arr,ArrayType(IntType,[IntLiteral(5)])),ParDecl(target,IntType)],IntType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(5)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(ArrayCell(Id(arr),[Id(i)]),==,Id(target)),Block([Return(Id(i))]))])),Return(UnaryOp(-,IntLiteral(1)))])),VarDecl(numbers,ArrayType(IntType,[IntLiteral(5)]),ArrayLiteral([IntLiteral(0O345)],FloatType,[IntLiteral(1),IntLiteral(2),IntLiteral(3),IntLiteral(4),IntLiteral(5)])),FuncDecl(main,[],VoidType,Block([VarDecl(index,IntType,FuncCall(findValue,[Id(numbers),IntLiteral(3)])),FuncCall(println,[Id(index)])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1392,7 +1392,7 @@ func main() {
     def test_ASTGen_89(self):
         inp = \
             """var a int = 5
-var b int = 10
+var b int = 0Xab69
 var result bool
 
 func main() {
@@ -1400,7 +1400,7 @@ func main() {
     println(result)
 }
 """
-        out = """Program([VarDecl(a,IntType,IntLiteral(5)),VarDecl(b,IntType,IntLiteral(10)),VarDecl(result,Id(bool)),FuncDecl(main,[],VoidType,Block([Assign(Id(result),BinaryOp(BinaryOp(BinaryOp(Id(a),+,Id(b)),>,IntLiteral(12)),&&,BinaryOp(BinaryOp(Id(a),*,Id(b)),<,IntLiteral(60)))),FuncCall(println,[Id(result)])]))])"""
+        out = """Program([VarDecl(a,IntType,IntLiteral(5)),VarDecl(b,IntType,IntLiteral(0Xab69)),VarDecl(result,Id(bool)),FuncDecl(main,[],VoidType,Block([Assign(Id(result),BinaryOp(BinaryOp(BinaryOp(Id(a),+,Id(b)),>,IntLiteral(12)),&&,BinaryOp(BinaryOp(Id(a),*,Id(b)),<,IntLiteral(60)))),FuncCall(println,[Id(result)])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1450,14 +1450,14 @@ func main() {
 	var i MyInterface
 	var m MyType
 	i := m
-    y[6].x[6].doSomething()
+    y[6].x[0b100].doSomething()
     Arr[i + 1] := 10
 
 	//i.doSomething()// Calling method doSomething of MyInterface
 
 }
 """
-        out = """Program([InterfaceType(MyInterface,[Prototype(doSomething,[],VoidType)]),StructType(MyType,[(x,Id(MyInterface))],[]),MethodDecl(m,Id(MyType),FuncDecl(doSomething,[],VoidType,Block([FuncCall(println,[StringLiteral("Hello")])]))),FuncDecl(main,[],VoidType,Block([VarDecl(i,Id(MyInterface)),VarDecl(m,Id(MyType)),Assign(Id(i),Id(m)),MethodCall(ArrayCell(FieldAccess(ArrayCell(Id(y),[IntLiteral(6)]),x),[IntLiteral(6)]),doSomething,[]),Assign(ArrayCell(Id(Arr),[BinaryOp(Id(i),+,IntLiteral(1))]),IntLiteral(10))]))])"""
+        out = """Program([InterfaceType(MyInterface,[Prototype(doSomething,[],VoidType)]),StructType(MyType,[(x,Id(MyInterface))],[]),MethodDecl(m,Id(MyType),FuncDecl(doSomething,[],VoidType,Block([FuncCall(println,[StringLiteral("Hello")])]))),FuncDecl(main,[],VoidType,Block([VarDecl(i,Id(MyInterface)),VarDecl(m,Id(MyType)),Assign(Id(i),Id(m)),MethodCall(ArrayCell(FieldAccess(ArrayCell(Id(y),[IntLiteral(6)]),x),[IntLiteral(0b100)]),doSomething,[]),Assign(ArrayCell(Id(Arr),[BinaryOp(Id(i),+,IntLiteral(1))]),IntLiteral(10))]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1482,13 +1482,13 @@ func main() {
             """
 
 
-var numbers [3]int = [3]int{1, "hello", 3} // "hello" is not an int. Error expected.
+var numbers [3]int = [0o27]int{1, "hello", 3} // "hello" is not an int. Error expected.
 
 func main() {
     println(numbers[0], numbers[1], numbers[2])
 }
 """
-        out = """Program([VarDecl(numbers,ArrayType(IntType,[IntLiteral(3)]),ArrayLiteral([IntLiteral(3)],IntType,[IntLiteral(1),StringLiteral("hello"),IntLiteral(3)])),FuncDecl(main,[],VoidType,Block([FuncCall(println,[ArrayCell(Id(numbers),[IntLiteral(0)]),ArrayCell(Id(numbers),[IntLiteral(1)]),ArrayCell(Id(numbers),[IntLiteral(2)])])]))])"""
+        out = """Program([VarDecl(numbers,ArrayType(IntType,[IntLiteral(3)]),ArrayLiteral([IntLiteral(0o27)],IntType,[IntLiteral(1),StringLiteral("hello"),IntLiteral(3)])),FuncDecl(main,[],VoidType,Block([FuncCall(println,[ArrayCell(Id(numbers),[IntLiteral(0)]),ArrayCell(Id(numbers),[IntLiteral(1)]),ArrayCell(Id(numbers),[IntLiteral(2)])])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1509,10 +1509,10 @@ func main() {
     def test_ASTGen_96(self):
         inp = \
             """func someOtherFunction() {
-    println(x == 5)
+    println(x == 0x5Af)
 }
 """
-        out = """Program([FuncDecl(someOtherFunction,[],VoidType,Block([FuncCall(println,[BinaryOp(Id(x),==,IntLiteral(5))])]))])"""
+        out = """Program([FuncDecl(someOtherFunction,[],VoidType,Block([FuncCall(println,[BinaryOp(Id(x),==,IntLiteral(0x5Af))])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1557,7 +1557,7 @@ func main() {
 	println(result)
 }
 """
-        out = """Program([StructType(MyType,[(Name,StringType)],[]),MethodDecl(mt,Id(MyType),FuncDecl(someMethod,[],StringType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(Id(i),==,IntLiteral(5)),Block([Return(StringLiteral("Found 5!"))]))])),Return(StringLiteral("Not found"))]))),FuncDecl(main,[],VoidType,Block([Assign(Id(mt),StructLiteral(MyType,[(Name,StringLiteral("Example"))])),Assign(Id(result),MethodCall(MethodCall(ArrayCell(Id(mt),[Id(y)]),f,[Id(z)]),someMethod,[])),FuncCall(println,[Id(result)])]))])"""
+        out = """Program([StructType(MyType,[(Name,StringType)],[]),MethodDecl(mt,Id(MyType),FuncDecl(someMethod,[],StringType,Block([For(Assign(Id(i),IntLiteral(0)),BinaryOp(Id(i),<,IntLiteral(10)),Assign(Id(i),BinaryOp(Id(i),+,IntLiteral(1))),Block([If(BinaryOp(Id(i),==,IntLiteral(5)),Block([Return(StringLiteral("Found 5!"))]))])),Return(StringLiteral("Not found"))]))),FuncDecl(main,[],VoidType,Block([Assign(Id(mt),StructLiteral(MyType,[(Name,StringLiteral("Example"))])),Assign(Id(result),MethodCall(MethodCall(ArrayCell(Id(mt),[FloatLiteral(3.2e-2)]),f,[Id(z)]),someMethod,[])),FuncCall(println,[Id(result)])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 

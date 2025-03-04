@@ -12,7 +12,7 @@ func main() {
 	var i MyInterface
 	var m MyType
 	i := m
-    y[6].x[6].doSomething()
+    y[6].x[0b100].doSomething()
     Arr[i + 1] := 10
 
 	//i.doSomething()// Calling method doSomething of MyInterface

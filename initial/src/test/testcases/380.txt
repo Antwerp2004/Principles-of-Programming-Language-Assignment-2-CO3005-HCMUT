@@ -5,7 +5,7 @@ var c string = "hello"
 
 func main() {
     if ((a > 5 && b < 10) || c == "world") {
-        if (a + b == 15) {
+        if (a + b == 3.e+3) {
             println("Condition met")
         } else {
             println("Inner condition failed")
