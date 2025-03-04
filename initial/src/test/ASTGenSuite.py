@@ -285,7 +285,7 @@ func main() { var x int = 50; }
              }
                                         
         """
-        out = "Program([FuncDecl(VT,[],VoidType,Block([None,Break(),Continue(),Return(IntLiteral(1)),Return(),FuncCall(foo,[BinaryOp(IntLiteral(2),+,Id(x)),BinaryOp(IntLiteral(4),/,Id(y))]),MethodCall(Id(m),goo,[])]))])"
+        out = """Program([FuncDecl(VT,[],VoidType,Block([For(BinaryOp(Id(i),<,IntLiteral(10)),Block([Break()])),Break(),Continue(),Return(IntLiteral(1)),Return(),FuncCall(foo,[BinaryOp(IntLiteral(2),+,Id(x)),BinaryOp(IntLiteral(4),/,Id(y))]),MethodCall(Id(m),goo,[])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
@@ -1092,7 +1092,7 @@ func main() {
         }
     }
 }"""
-        out = "Program([FuncDecl(main,[],VoidType,Block([None]))])"
+        out = "Program([FuncDecl(main,[],VoidType,Block([For(BinaryOp(Id(i),<,IntLiteral(3)),Block([For(BinaryOp(Id(j),!=,UnaryOp(!,IntLiteral(1))),Block([FuncCall(println,[Id(i),Id(j)])]))]))]))])"
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 

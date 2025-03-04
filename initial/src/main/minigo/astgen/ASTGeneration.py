@@ -73,7 +73,7 @@ class ASTGeneration(MiniGoVisitor):
         return self.visit(ctx.getChild(0))
     
     # Basic For Loop
-    def visitBasic_for_stmt(self,ctx:MiniGoParser.Basic_for_loopContext):
+    def visitBasic_for_loop(self,ctx:MiniGoParser.Basic_for_loopContext):
         return ForBasic(self.visit(ctx.expr()), self.visit(ctx.block()))
     
     # For Loop with Initialization, Condition, and Update
