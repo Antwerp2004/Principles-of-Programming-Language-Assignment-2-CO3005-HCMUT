@@ -232,10 +232,7 @@ class ASTGeneration(MiniGoVisitor):
         return ArrayLiteral(self.visit(ctx.array_type()).dimens, self.visit(ctx.array_type()).eleType, self.visit(ctx.array_ele_list()))
     
     def visitArray_ele_list(self,ctx:MiniGoParser.Array_ele_listContext):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.array_ele())
-        else:
-            return [self.visit(x) for x in ctx.array_ele()]
+        return [self.visit(x) for x in ctx.array_ele()]
         
     def visitArray_ele(self,ctx:MiniGoParser.Array_eleContext):
         if ctx.INTEGER_LITERAL():

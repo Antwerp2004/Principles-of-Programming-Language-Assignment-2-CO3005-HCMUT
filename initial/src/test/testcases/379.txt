@@ -7,6 +7,6 @@ func myFunction() {
 
 func main() {
     myFunction()
-    println(globalVar) // Access global variable from main
+    println([1]int{1}, [1][1]int{2}) // Access global variable from main
     //println(localVar) // Error: localVar is not defined in main
 }

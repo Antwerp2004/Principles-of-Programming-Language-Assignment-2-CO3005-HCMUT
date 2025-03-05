@@ -1204,11 +1204,11 @@ func myFunction() {
 
 func main() {
     myFunction()
-    println(globalVar) // Access global variable from main
+    println([1]int{1}, [1][1]int{2}) // Access global variable from main
     //println(localVar) // Error: localVar is not defined in main
 }
 """
-        out = "Program([VarDecl(globalVar,IntType,IntLiteral(20)),FuncDecl(myFunction,[],VoidType,Block([VarDecl(localVar,IntType,IntLiteral(10)),FuncCall(println,[BinaryOp(Id(globalVar),+,Id(localVar))])])),FuncDecl(main,[],VoidType,Block([FuncCall(myFunction,[]),FuncCall(println,[Id(globalVar)])]))])"
+        out = """Program([VarDecl(globalVar,IntType,IntLiteral(20)),FuncDecl(myFunction,[],VoidType,Block([VarDecl(localVar,IntType,IntLiteral(10)),FuncCall(println,[BinaryOp(Id(globalVar),+,Id(localVar))])])),FuncDecl(main,[],VoidType,Block([FuncCall(myFunction,[]),FuncCall(println,[ArrayLiteral([IntLiteral(1)],IntType,[IntLiteral(1)]),ArrayLiteral([IntLiteral(1),IntLiteral(1)],IntType,[IntLiteral(2)])])]))])"""
         ASTGenSuite.ASTGenTest += 1
         self.assertTrue(TestAST.checkASTGen(inp, out, ASTGenSuite.ASTGenTest))
 
